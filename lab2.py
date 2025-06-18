@@ -21,3 +21,4 @@ favorite_things = {"show": "Dexter",'Food' : "fresh bread"}
 print (name)
 print(nickname)
 print(age)  
+print(hobbies)
