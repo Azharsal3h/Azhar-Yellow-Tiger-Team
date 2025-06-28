@@ -1,0 +1,165 @@
+menu = {
+    'Pizza': 2.99,
+    'Burger': 3.99,
+    'Hot dog': 1.99,
+    'Cheese': 0.59,
+    'Churro': 1.49,
+    'Soda': 0.89,
+    'Ice cream': 0.89
+}
+
+# Step II: Define the total_price function
+def total_price(item1_name, item2_name):
+  """
+  Calculates the total price of two items from the menu.
+  Handles cases where an item might not be found in the menu.
+  """
+  # Check if both items exist in the menu
+  if item1_name not in menu:
+    print(f"Oops! '{item1_name}' is not on the menu.")
+    return None # Return None to show an error occurred
+  if item2_name not in menu:
+    print(f"Oops! '{item2_name}' is not on the menu.")
+    return None
+
+  # Get the prices using the item names as keys
+  price1 = menu[item1_name]
+  price2 = menu[item2_name]
+
+  # Calculate and return the sum
+  total = price1 + price2
+  return total
+
+# Step III: Define the price_difference function
+def price_difference(item1_name, item2_name):
+  """
+  Calculates the absolute difference in price between two menu items.
+  Handles cases where an item might not be found in the menu.
+  """
+  # Check if both items exist in the menu
+  if item1_name not in menu:
+    print(f"Oops! '{item1_name}' is not on the menu.")
+    return None
+  if item2_name not in menu:
+    print(f"Oops! '{item2_name}' is not on the menu.")
+    return None
+
+  # Get the prices
+  price1 = menu[item1_name]
+  price2 = menu[item2_name]
+
+  # Calculate the difference and return its absolute value (always positive)
+  difference = price1 - price2
+  return abs(difference) # abs() makes sure the result is positive
+
+# Stretch goal for Step II/III: Returning a formatted string
+def total_price_string(item1_name, item2_name):
+    """
+    Calculates the total price and returns it as a nice sentence.
+    """
+    # We can reuse our total_price function here!
+    total = total_price(item1_name, item2_name)
+
+    # If total_price returned None, it means an item was missing.
+    if total is None:
+        return "Could not calculate total, one or more items were not found."
+    else:
+        # Use an f-string to create the sentence
+        return f"The total price of {item1_name} and {item2_name} is ${total:.2f}" # :.2f formats it to two decimal places
+
+# Step IV: Define the inflation function
+def inflation(current_menu, item_name, multiplier):
+  """
+  Increases the price of a specific item in the menu by a multiplier.
+  Returns the whole menu dictionary after the update.
+  Handles cases where the item isn't found.
+  """
+  # Check if the item exists before trying to change its price
+  if item_name in current_menu:
+    current_menu[item_name] *= multiplier # Multiply the price
+  else:
+    print(f"Whoops! '{item_name}' isn't on the menu to apply inflation.")
+  # Always return the dictionary, whether it was updated or not
+  return current_menu
+
+# Step V: Define the deflation function
+def deflation(current_menu, item_name, divisor):
+  """
+  Decreases the price of a specific item in the menu by dividing it.
+  Returns the whole menu dictionary after the update.
+  Handles cases where the item isn't found or the divisor is zero.
+  """
+  # Check if the item exists
+  if item_name in current_menu:
+    # IMPORTANT: Prevent division by zero!
+    if divisor != 0:
+      current_menu[item_name] /= divisor # Divide the price
+    else:
+      print("Error: Can't divide by zero! Price not changed.")
+  else:
+    print(f"Whoops! '{item_name}' isn't on the menu to apply deflation.")
+  # Return the dictionary
+  return current_menu
+
+# Step VI: Create your own unique function (using floor division)
+def item_cost_for_two(current_menu, item_name):
+    """
+    Calculates the cost of buying two of the same item, where the second is half price.
+    Uses floor division (//) for a bit of a twist.
+    """
+    if item_name not in current_menu:
+        print(f"Oops! '{item_name}' is not on the menu.")
+        return None
+
+    price = current_menu[item_name]
+    # Cost = price of first item + price of second item (half price)
+    # Using floor division for half price: price // 2
+    cost_of_two = price + (price // 2)
+    return f"Buying two '{item_name}' would cost ${cost_of_two:.2f} (second item half price)."
+
+
+# --- Now let's demonstrate how to USE these functions! ---
+
+print("--- Demonstrating Functions ---")
+
+# --- Testing total_price ---
+print("\nCalculating total prices:")
+print(f"Pizza + Burger: ${total_price('Pizza', 'Burger'):.2f}")
+print(f"Churro + Soda: ${total_price('Churro', 'Soda'):.2f}")
+print(f"Trying total for Pizza + Taco (Taco is missing): {total_price('Pizza', 'Taco')}") # This will print an error message
+
+# --- Testing price_difference ---
+print("\nCalculating price differences:")
+print(f"Difference between Pizza and Burger: ${price_difference('Pizza', 'Burger'):.2f}")
+print(f"Difference between Burger and Pizza: ${price_difference('Burger', 'Pizza'):.2f}") # Should be the same positive number
+print(f"Trying difference for Ice cream + Taco (Taco is missing): {price_difference('Ice cream', 'Taco')}")
+
+# --- Testing the formatted string function ---
+print("\nTesting formatted output:")
+print(total_price_string('Burger', 'Cheese'))
+print(total_price_string('Pizza', 'Fries')) # Fries is missing
+
+# --- Testing inflation and deflation ---
+print("\nTesting inflation and deflation:")
+menu_copy_for_tests = menu.copy()
+
+# Apply 10% inflation to Pizza
+print(f"Original Pizza price: ${menu_copy_for_tests['Pizza']:.2f}")
+inflation(menu_copy_for_tests, 'Pizza', 1.10)
+print(f"Pizza price after 10% inflation: ${menu_copy_for_tests['Pizza']:.2f}")
+
+# Apply 20% deflation to Burger
+print(f"Original Burger price: ${menu_copy_for_tests['Burger']:.2f}")
+deflation(menu_copy_for_tests, 'Burger', 1.20)
+print(f"Burger price after 20% deflation: ${menu_copy_for_tests['Burger']:.2f}")
+
+# Test trying to inflate an item not on the menu
+inflation(menu_copy_for_tests, 'Taco', 1.50)
+# Test trying to deflate with zero
+deflation(menu_copy_for_tests, 'Soda', 0)
+
+# --- Testing our unique function ---
+print("\nTesting custom function (item_cost_for_two):")
+print(item_cost_for_two(menu, 'Hot dog'))
+print(item_cost_for_two(menu, 'Ice cream'))
+print(item_cost_for_two(menu, 'Fries')) # Fries is missing
