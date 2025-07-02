@@ -1,0 +1,35 @@
+checking = "yes"
+
+while checking.lower() == "yes":
+    user_input = input("What is your age: ")
+    
+    if user_input.isdigit():
+        if int(user_input) >= 18:
+            print("Yes, you can vote.")
+        else:
+            print("You can't vote.")
+    else:
+        print("Invalid input. Please enter a number.")
+        continue  # Ask again
+    
+    checking = input("Would you like to check another age? (yes/no): ")
+
+#List number classification
+list1 = [3, -1, 0, 6, -4]
+
+for x in list1:
+    if x > 0:
+        print("Value is positive")
+    elif x < 0:
+        print("Value is negative")
+    else:
+        print("Number is zero")
+
+#Inventory check
+inventory = ["tnt", "glass", "grass", "netherite", "wood"]
+
+for i in inventory:
+    if i == "wood":
+        print("material")
+    elif i == "tnt":
+        print("wood")  
