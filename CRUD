@@ -1,0 +1,78 @@
+cookbook = []
+
+def create(recipe):
+    cookbook.append(recipe)
+    print(f"Recipe '{recipe}' has been added to the cookbook.")
+
+def read(index):
+    if 0 <= index < len(cookbook):
+        print(f"Recipe at index {index}: {cookbook[index]}")
+        return cookbook[index]
+    else:
+        print("Error: Index out of range.")
+        return None
+
+def update(index, recipe):
+    if 0 <= index < len(cookbook):
+        old_recipe = cookbook[index]
+        cookbook[index] = recipe
+        print(f"Recipe at index {index} updated from '{old_recipe}' to '{recipe}'.")
+    else:
+        print("Error: Index out of range.")
+
+def destroy(index):
+    if 0 <= index < len(cookbook):
+        removed_recipe = cookbook.pop(index)
+        print(f"Recipe '{removed_recipe}' at index {index} has been removed from the cookbook.")
+    else:
+        print("Error: Index out of range.")
+
+def list_all_recipes():
+    if len(cookbook) == 0:
+        print("The cookbook is empty.")
+    else:
+        print("All Recipes in the Cookbook:")
+        for i, recipe in enumerate(cookbook):
+            print(f"{i}. {recipe}")
+
+def main():
+    while True:
+        print("\nCookbook Recipes")
+        print("1. Add a Recipe")
+        print("2. Read a Recipe")
+        print("3. Update a Recipe")
+        print("4. Delete a Recipe")
+        print("5. Display all Recipes")
+        print("6. Exit")
+
+        choice = input("Choose an option (1-6): ")
+
+        if choice == "1":
+            recipe = input("Enter the name of the recipe: ")
+            create(recipe)
+        elif choice == "2":
+            index = input("Enter the index of the recipe to read: ")
+            if index.isdigit():
+                read(int(index))
+            else:
+                print("Please enter a valid number.")
+        elif choice == "3":
+            index = input("Enter the index of the recipe to update: ")
+            if index.isdigit():
+                recipe = input("Enter the name of the recipe you want to update it with: ")
+                update(int(index), recipe)
+            else:
+                print("Please enter a valid number.")
+        elif choice == "4":
+            index = input("Enter the index of the recipe to delete: ")
+            if index.isdigit():
+                destroy(int(index))
+            else:
+                print("Please enter a valid number.")
+        elif choice == "5":
+            list_all_recipes()
+        elif choice == "6":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice, please try again.")
