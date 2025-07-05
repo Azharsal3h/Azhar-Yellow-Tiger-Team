@@ -2,77 +2,75 @@ cookbook = []
 
 def create(recipe):
     cookbook.append(recipe)
-    print(f"Recipe '{recipe}' has been added to the cookbook.")
+    print(recipe + " was added!")
 
 def read(index):
     if 0 <= index < len(cookbook):
-        print(f"Recipe at index {index}: {cookbook[index]}")
-        return cookbook[index]
+        print("Recipe at spot", index, "is", cookbook[index])
     else:
-        print("Error: Index out of range.")
-        return None
+        print("That number doesn't exist in the list.")
 
 def update(index, recipe):
     if 0 <= index < len(cookbook):
-        old_recipe = cookbook[index]
+        print("Changing", cookbook[index], "to", recipe)
         cookbook[index] = recipe
-        print(f"Recipe at index {index} updated from '{old_recipe}' to '{recipe}'.")
     else:
-        print("Error: Index out of range.")
+        print("Can't update — that spot doesn't exist.")
 
 def destroy(index):
     if 0 <= index < len(cookbook):
-        removed_recipe = cookbook.pop(index)
-        print(f"Recipe '{removed_recipe}' at index {index} has been removed from the cookbook.")
+        removed = cookbook.pop(index)
+        print("Deleted", removed, "from the cookbook.")
     else:
-        print("Error: Index out of range.")
+        print("That number isn’t in the list.")
 
 def list_all_recipes():
     if len(cookbook) == 0:
         print("The cookbook is empty.")
     else:
-        print("All Recipes in the Cookbook:")
-        for i, recipe in enumerate(cookbook):
-            print(f"{i}. {recipe}")
+        print("Here’s everything in your cookbook:")
+        for i in range(len(cookbook)):
+            print(str(i) + ".", cookbook[i])
 
 def main():
     while True:
-        print("\nCookbook Recipes")
-        print("1. Add a Recipe")
-        print("2. Read a Recipe")
-        print("3. Update a Recipe")
-        print("4. Delete a Recipe")
-        print("5. Display all Recipes")
+        print("\nWhat do you want to do?")
+        print("1. Add a recipe")
+        print("2. Read a recipe")
+        print("3. Update a recipe")
+        print("4. Delete a recipe")
+        print("5. Show all recipes")
         print("6. Exit")
 
-        choice = input("Choose an option (1-6): ")
+        choice = input("Pick a number (1-6): ")
 
         if choice == "1":
-            recipe = input("Enter the name of the recipe: ")
+            recipe = input("Type the name of the recipe: ")
             create(recipe)
         elif choice == "2":
-            index = input("Enter the index of the recipe to read: ")
+            index = input("What number recipe do you want to see? ")
             if index.isdigit():
                 read(int(index))
             else:
-                print("Please enter a valid number.")
+                print("That’s not a number.")
         elif choice == "3":
-            index = input("Enter the index of the recipe to update: ")
+            index = input("What number do you want to change? ")
             if index.isdigit():
-                recipe = input("Enter the name of the recipe you want to update it with: ")
-                update(int(index), recipe)
+                new_recipe = input("What should it be now? ")
+                update(int(index), new_recipe)
             else:
-                print("Please enter a valid number.")
+                print("That’s not a number.")
         elif choice == "4":
-            index = input("Enter the index of the recipe to delete: ")
+            index = input("Which number do you want to delete? ")
             if index.isdigit():
                 destroy(int(index))
             else:
-                print("Please enter a valid number.")
+                print("That’s not a number.")
         elif choice == "5":
             list_all_recipes()
         elif choice == "6":
-            print("Exiting the program.")
+            print("Goodbye!")
             break
         else:
-            print("Invalid choice, please try again.")
+            print("Pick a number from 1 to 6!")
+
