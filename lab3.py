@@ -1,23 +1,34 @@
-# Lab 3
-
-# Task 1: Working with Strings 
-food = 'Pizza'
-print(food[0:3]) #print first 3 characters
-print(food[-3:-1]) #print last 3 characters
-first_last = food[0] + food[-1] #combine first and last character
-print(first_last)
+food = "pizza with pepperoni"
+print("First 3 letters:", food[:3])
+print("Last 3 letters:", food[-3:])
+new_string = food[0] + food[-1]
+print("First and last letters combined:", new_string)
 food_list = food.split()
-print(food_list) 
-joined_food = ' '.join(food_list)
-print(joined_food) 
+print("Split into list:", food_list)
+joined_food = " ".join(food_list)
+print("Joined back to string:", joined_food)
 
-# task 2: working with lists 
-number_list = [1, 394383, 32, -5, 0, 234]
-number_list.append(67)
-#print(number_list)
-number_list.insert(3, 1000)
-#print(number_list) 
+number_list = [3, 6, 9, 12, 15]
+number_list.append(18)
+number_list.insert(3, 99)
 number_list.pop()
-#print(number_list) 
-number_list.remove(number_list[1])
+number_list.remove(6)
+print("Updated list:", number_list)
+print("First 3 numbers:", number_list[:3])
+print("Last 3 numbers:", number_list[-3:])
+
+books = {
+    "Rick Riordan": "Percy Jackson",
+    "JK Rowling": "Harry Potter",
+    "Suzanne Collins": "Hunger Games",
+    "Dr. Seuss": "Green Eggs and Ham"
+}
+print("Authors:", list(books.keys()))
+print("Books:", list(books.values()))
+print("Book by JK Rowling:", books.get("JK Rowling"))
+books.pop("Suzanne Collins")
+print("After removing Suzanne Collins:", books)
+del books["Rick Riordan"]
+print("After deleting Rick Riordan:", books)
+
 
