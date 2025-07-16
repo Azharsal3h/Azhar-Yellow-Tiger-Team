@@ -46,7 +46,7 @@ for i in range(5):
 #the "," was in the wrong place
 # Incorrect:
 def greet(name):
-   return "Hello", name
+   return "Hello", + name
  
 print(greet("Alice"))
 
@@ -67,16 +67,18 @@ def factorial(n):
        return n * factorial(n+1)
 
 #snippet 9 
-# nothing came out wrong with this too??
+# fixed it i put "name =="
 name = input("Enter your name: ")
-if name == "Alice" or "Bob":
+if name == "stranger" or name == "Bob":
    print("Hello, " + name)
 else:
-   print("Hello, stranger!")
+   print("Hello, stranger")
 
 # snippet 10 
-# umm nothing came out wrong with this one to...?
+# 
 def divide_numbers(x, y):
+   if y == 0:
+      return "Error: Cannot divide by zero"
    result = x / y
    return result
  
